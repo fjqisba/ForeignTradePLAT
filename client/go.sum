@@ -1,0 +1,4 @@
+github.com/twgh/xcgui v1.3.340 h1:roAT7MbmgkzLtUMjnxsy048Sncg+iToTUkzScUAwAdQ=
+github.com/twgh/xcgui v1.3.340/go.mod h1:16uhvR074Kq1coBif0l6b40CsnwDB9bGiXnGQumi5vI=
+github.com/twgh/xcgui-example v0.0.0-20220609072844-6fed6abbfa6d h1:hdEThQf+w+4d1Oqb52HK7g6BnoT85NLK34prGSYpCrc=
+github.com/twgh/xcgui-example v0.0.0-20220609072844-6fed6abbfa6d/go.mod h1:gC2FtiCMOEd0QJpN4NcIrJP7aFJ4vFFGqQiewdZ2k0g=
