@@ -1,11 +1,18 @@
 package main
 
-import "log"
+import (
+	"log"
+	"server/ServerApi"
+)
 
 func main()  {
-
-
-
-
-	log.Println("123")
+	apiServer := ServerApi.NewServerApi()
+	err := apiServer.InitServerApi()
+	if err != nil{
+		log.Panicln(err)
+	}
+	err = apiServer.RunServerApi()
+	if err != nil{
+		log.Panicln(err)
+	}
 }
