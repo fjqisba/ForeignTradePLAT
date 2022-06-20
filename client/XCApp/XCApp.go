@@ -32,6 +32,11 @@ type XCApp struct {
 	menu_About *widget.MenuBar
 	//菜单_管理员
 	menu_Admin *widget.MenuBar
+	//临时编辑框
+	tmpEditBox *widget.Edit
+
+	//列表菜单
+	menu_Csv *widget.Menu
 }
 
 func NewXCApp()*XCApp  {
@@ -119,8 +124,6 @@ func (this *XCApp)InitXCApp()error  {
 	this.app = app.New(true)
 	// 从内存zip中加载资源文件
 	this.app.LoadResourceZipMem(TradeUI, "resource.res", "")
-
-
 
 
 	return nil

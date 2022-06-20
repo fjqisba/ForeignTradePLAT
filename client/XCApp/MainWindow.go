@@ -29,10 +29,11 @@ func (this *XCApp)loadMainWindow(bAdmin bool) {
 		this.menu_Admin = widget.NewMenuBar(0,0,100,20,布局_菜单.Handle)
 		this.menu_Admin.LayoutItem_SetWidth(xcc.Layout_Size_Fixed,70)
 		this.menu_Admin.AddButton(" 管理员    ")
+		this.wnd_Main.SetTitle("外贸客户管理平台(管理员)")
 	}
 
 	this.menu_About = widget.NewMenuBar(0,0,100,20,布局_菜单.Handle)
-	this.menu_About.LayoutItem_SetWidth(xcc.Layout_Size_Fixed,57)
+	this.menu_About.LayoutItem_SetWidth(xcc.Layout_Size_Fixed,58)
 	this.menu_About.AddButton(" 关于    ")
 	widget.NewMenuByHandle(this.menu_About.GetMenu(0)).AddItem(0,"关于软件",0,xcc.Menu_Item_Flag_Normal)
 	this.menu_About.Event_MENU_SELECT(this.OnMenuAbout_Selected)
@@ -64,6 +65,7 @@ func (this *XCApp)loadMainWindow(bAdmin bool) {
 
 	//添加事件
 	this.list_Csv.Event_LBUTTONDBCLICK(this.on_EditCSV)
+	this.list_Csv.Event_RBUTTONDOWN(this.on_CSVRightClicked)
 
 	this.wnd_Main.AdjustLayout()
 	this.wnd_Main.ShowWindow(xcc.SW_SHOW)

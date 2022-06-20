@@ -10,7 +10,6 @@ func (this *XCApp)OnMenuApp_Selected(nID int, pbHandled *bool)int  {
 	if nID == 0{
 		return this.importClientData()
 	}
-
 	if nID == 3{
 		this.wnd_Main.CloseWindow()
 	}
