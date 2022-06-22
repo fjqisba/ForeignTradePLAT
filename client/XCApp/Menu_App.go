@@ -10,9 +10,13 @@ func (this *XCApp)OnMenuApp_Selected(nID int, pbHandled *bool)int  {
 	if nID == 0{
 		return this.importClientData()
 	}
-	if nID == 3{
+	//保存CSV
+	if nID == 1{
+		return this.ExportCSV()
+	}
+	//退出
+	if nID == 2{
 		this.wnd_Main.CloseWindow()
 	}
-
 	return 0
 }

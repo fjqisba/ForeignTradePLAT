@@ -1,6 +1,7 @@
 package XCApp
 
 import (
+	"client/config"
 	"github.com/twgh/xcgui/listitemtemplate"
 	"github.com/twgh/xcgui/widget"
 	"github.com/twgh/xcgui/window"
@@ -21,7 +22,8 @@ func (this *XCApp)loadMainWindow(bAdmin bool) {
 	this.menu_App.AddButton(" 程序    ")
 
 	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(0,"导入CSV",0,xcc.Menu_Item_Flag_Normal)
-	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(1,"退出",0,xcc.Menu_Item_Flag_Normal)
+	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(1,"导出CSV",0,xcc.Menu_Item_Flag_Normal)
+	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(2,"退出",0,xcc.Menu_Item_Flag_Normal)
 	this.menu_App.Event_MENU_SELECT(this.OnMenuApp_Selected)
 
 	//管理员模式才有的功能
@@ -29,6 +31,8 @@ func (this *XCApp)loadMainWindow(bAdmin bool) {
 		this.menu_Admin = widget.NewMenuBar(0,0,100,20,布局_菜单.Handle)
 		this.menu_Admin.LayoutItem_SetWidth(xcc.Layout_Size_Fixed,70)
 		this.menu_Admin.AddButton(" 管理员    ")
+		widget.NewMenuByHandle(this.menu_Admin.GetMenu(0)).AddItem(201,"获取Hunter数据",0,xcc.Menu_Item_Flag_Normal)
+		this.menu_Admin.Event_MENU_SELECT(this.OnMenuAdmin_Selected)
 		this.wnd_Main.SetTitle("外贸客户管理平台(管理员)")
 	}
 
@@ -47,25 +51,25 @@ func (this *XCApp)loadMainWindow(bAdmin bool) {
 	this.list_Csv.SetItemTemplate(csvItemTemplate.Handle)
 	this.list_Csv.SetItemTemplate(csvHeadTemplate.Handle)
 
+	this.list_Csv.SetItemHeightDefault(25,30)
+
 	this.list_Csv.CreateAdapterHeader()
 	this.list_Csv.CreateAdapter()
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
-	this.list_Csv.AddColumn(100);this.list_Csv.AddColumn(100)
+
+	//创建Csv头部
+	for i:=0;i<24;i++{
+		width := config.Instance.GetItemWidth(i)
+		if width == 0{
+			width = 100
+		}
+		this.list_Csv.AddColumn(width)
+	}
 
 	//添加事件
 	this.list_Csv.Event_LBUTTONDBCLICK(this.on_EditCSV)
 	this.list_Csv.Event_RBUTTONDOWN(this.on_CSVRightClicked)
+	this.list_Csv.Event_MENU_SELECT(this.on_CsvMenuSelected)
+	this.list_Csv.Event_LIST_HEADER_WIDTH_CHANGE(this.on_ChangeCSVWith)
 
 	this.wnd_Main.AdjustLayout()
 	this.wnd_Main.ShowWindow(xcc.SW_SHOW)

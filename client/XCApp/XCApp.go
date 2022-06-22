@@ -34,9 +34,11 @@ type XCApp struct {
 	menu_Admin *widget.MenuBar
 	//临时编辑框
 	tmpEditBox *widget.Edit
-
 	//列表菜单
 	menu_Csv *widget.Menu
+
+	//当前打开的CSV路径
+	currentCsvPath string
 }
 
 func NewXCApp()*XCApp  {

@@ -1,13 +1,13 @@
 package XCApp
 
 import (
+	"client/config"
 	"github.com/twgh/xcgui/widget"
 	"github.com/twgh/xcgui/xc"
 	"github.com/twgh/xcgui/xcc"
 )
 
 func (this *XCApp)updateEditBoxData()int  {
-
 	if xc.XC_GetObjectType(this.tmpEditBox.Handle) != xcc.XC_EDIT{
 		return 0
 	}
@@ -37,6 +37,11 @@ func (this *XCApp)on_EditKeyDown(wParam int, lParam int, pbHandled *bool)int  {
 	return 0
 }
 
+func (this *XCApp)on_ChangeCSVWith(iItem int, nWidth int, pbHandled *bool)int  {
+	config.Instance.SaveItemWidth(iItem,nWidth)
+	return 0
+}
+
 func (this *XCApp)on_EditCSV(nFlags int, pPt *xc.POINT, pbHandled *bool)int  {
 	var itemIndex,subItemIndex int
 	if this.list_Csv.HitTestOffset(pPt,&itemIndex,&subItemIndex) == false{
@@ -52,7 +57,7 @@ func (this *XCApp)on_EditCSV(nFlags int, pPt *xc.POINT, pbHandled *bool)int  {
 		hElement := widget.NewLayoutEleByHandle(hLayOutHandle)
 		var rect xc.RECT
 		hElement.GetRect(&rect)
-		this.tmpEditBox = widget.NewEdit(int(rect.Left),int(rect.Top),
+		this.tmpEditBox = widget.NewEdit(int(rect.Left)+this.list_Csv.GetViewPosH(),int(rect.Top)+this.list_Csv.GetViewPosV(),
 			int(rect.Right-rect.Left),int(rect.Bottom-rect.Top),this.list_Csv.Handle)
 		this.wnd_Main.SetFocusEle(this.tmpEditBox.Handle)
 		oContent := hShapeText.GetText()

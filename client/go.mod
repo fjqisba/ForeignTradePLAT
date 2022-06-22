@@ -19,4 +19,5 @@ require (
 	github.com/twgh/xcgui-example v0.0.0-20220609072844-6fed6abbfa6d // indirect
 	golang.org/x/text v0.3.3 // indirect
 	golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543 // indirect
+	gopkg.in/ini.v1 v1.66.6 // indirect
 )

@@ -41,16 +41,12 @@ type CustomerInformation struct {
 	Industry	string		`json:"industry"`
 	//国家
 	Country		string		`json:"country"`
-	//地区
-	Region		string		`json:"region"`
 	//城市
 	City		string		`json:"city"`
 	//详细地址
 	StreetAddress	string	`json:"street_address"`
 	//邮编
 	PostalCode	string		`json:"postal_code"`
-	//领英介绍
-	LinkedInBio	string		`json:"linkedin_bio"`
 	//跟进人
 	Coordinator	string		`json:"coordinator"`
 	//导入日期
