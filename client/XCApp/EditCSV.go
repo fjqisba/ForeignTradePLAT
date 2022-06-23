@@ -7,6 +7,12 @@ import (
 	"github.com/twgh/xcgui/xcc"
 )
 
+var(
+	currentEditItem int
+	currentEditSubItem int
+)
+
+
 func (this *XCApp)updateEditBoxData()int  {
 	if xc.XC_GetObjectType(this.tmpEditBox.Handle) != xcc.XC_EDIT{
 		return 0
@@ -17,9 +23,10 @@ func (this *XCApp)updateEditBoxData()int  {
 	if xc.XC_GetObjectType(originHandle) == xcc.XC_SHAPE_TEXT{
 		hShapeBox := widget.NewShapeTextByHandle(originHandle)
 		hShapeBox.SetText(newTxt)
+		this.list_Csv.SetItemText(currentEditItem,currentEditSubItem,newTxt)
 	}
 	this.tmpEditBox.Destroy()
-	this.list_Csv.Redraw(false)
+	this.list_Csv.Redraw(true)
 	return 0
 }
 
@@ -64,6 +71,9 @@ func (this *XCApp)on_EditCSV(nFlags int, pPt *xc.POINT, pbHandled *bool)int  {
 		this.tmpEditBox.SetText(oContent)
 		this.tmpEditBox.SetUserData(hShapeText.Handle)
 		this.tmpEditBox.Event_KEYDOWN(this.on_EditKeyDown)
+
+		currentEditItem = itemIndex
+		currentEditSubItem = subItemIndex
 		this.tmpEditBox.Event_KILLFOCUS1(this.on_FinishEditBox)
 	}
 

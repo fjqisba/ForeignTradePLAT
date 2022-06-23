@@ -21,9 +21,10 @@ func (this *XCApp)loadMainWindow(bAdmin bool) {
 	this.menu_App.LayoutItem_SetWidth(xcc.Layout_Size_Fixed,55)
 	this.menu_App.AddButton(" 程序    ")
 
-	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(0,"导入CSV",0,xcc.Menu_Item_Flag_Normal)
-	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(1,"导出CSV",0,xcc.Menu_Item_Flag_Normal)
-	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(2,"退出",0,xcc.Menu_Item_Flag_Normal)
+	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(101,"导入CSV",0,xcc.Menu_Item_Flag_Normal)
+	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(102,"导出CSV",0,xcc.Menu_Item_Flag_Normal)
+	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(103,"清空CSV",0,xcc.Menu_Item_Flag_Normal)
+	widget.NewMenuByHandle(this.menu_App.GetMenu(0)).AddItem(104,"退出",0,xcc.Menu_Item_Flag_Normal)
 	this.menu_App.Event_MENU_SELECT(this.OnMenuApp_Selected)
 
 	//管理员模式才有的功能
