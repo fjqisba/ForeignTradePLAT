@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Trade">
+        <file alias="RC_ICONS">trade.png</file>
+        <file>trade.png</file>
+    </qresource>
+</RCC>

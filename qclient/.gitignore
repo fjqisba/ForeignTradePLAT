@@ -1,1 +1,6 @@
 .idea/
+deploy/
+vendor/
+windows/
+*.cpp
+rcc_cgo_windows_windows_amd64.go

@@ -1,0 +1,4 @@
+*.cpp
+*.h
+moc.go
+moc_cgo_windows_windows_amd64.go

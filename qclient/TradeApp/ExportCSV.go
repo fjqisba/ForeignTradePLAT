@@ -6,6 +6,8 @@ import (
 	"github.com/therecipe/qt/widgets"
 	"log"
 	"os"
+	"path/filepath"
+	"qclient/Config"
 )
 
 func (this *TradeApp)onMenu_ClearCSV(checked bool)  {
@@ -28,10 +30,11 @@ func (this *TradeApp)onMenu_ExportCSV(checked bool)  {
 	if rowCount == 0{
 		return
 	}
-	filePath := widgets.QFileDialog_GetSaveFileName(this.wnd_Main,"导入客户数据","","表格文件(*.csv *.xlsx)","",widgets.QFileDialog__ReadOnly)
+	filePath := widgets.QFileDialog_GetSaveFileName(this.wnd_Main,"导入客户数据",Config.Instance.GetCreateFileDir(),"表格文件(*.csv *.xlsx)","",widgets.QFileDialog__ReadOnly)
 	if filePath == ""{
 		return
 	}
+	Config.Instance.SetCreateFileDir(filepath.Dir(filePath))
 	//开始写出Csv
 	hFile,err := os.OpenFile(filePath,os.O_WRONLY|os.O_CREATE|os.O_TRUNC,0666)
 	if err != nil{
@@ -43,7 +46,6 @@ func (this *TradeApp)onMenu_ExportCSV(checked bool)  {
 		"Phone Number","Email", "Key Contact","Hunter Data","Company Domain Name","Customer Type",
 		"Customer Rating","Followup Date","Remarks","Description","Facebook Page", "LinkedIn Company Page",
 		"Twitter Handle","Industry","Country","City","Street Address","Postal Code","Coordinator","Creation Date"})
-
 	for i:=0;i<rowCount;i++{
 		log.Println(this.table_CSV.Item(i,0).Text())
 		hCsvWriter.Write([]string{

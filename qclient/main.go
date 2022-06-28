@@ -5,7 +5,7 @@ import (
 )
 
 func main()  {
-	app := TradeApp.NewTradeApp()
+	app := TradeApp.NewTradeAppClient()
 	app.InitTradeApp()
 	app.Run()
 }
