@@ -18,7 +18,7 @@ import (
 func (this *TradeApp)UpdatePage(page int,count int,orderBy string,userName string)  {
 	var retResp Model.CustomerDataRsp
 	var err error
-	if global.GUserLevel == api.USER_ADMIN{
+	if global.GUserLevel == Model.USER_ADMIN{
 		retResp,err = api.GetAllCustomerData(page,count,orderBy)
 	}else{
 		retResp,err = api.GetCustomerData(page,count,orderBy,userName)

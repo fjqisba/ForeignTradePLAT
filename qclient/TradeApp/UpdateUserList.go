@@ -32,7 +32,7 @@ func (this *selectAction)onAction_AssignTaskCilcked(checked bool)  {
 }
 
 func (this *TradeApp)UpdateUserList()  {
-	if global.GUserLevel != api.USER_ADMIN{
+	if global.GUserLevel != Model.USER_ADMIN{
 		return
 	}
 	userList,err := api.GetUserList()

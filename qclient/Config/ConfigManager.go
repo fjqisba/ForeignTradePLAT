@@ -37,6 +37,10 @@ func (this *AppConfig)GetItemWidth(iItem int)int {
 	return i
 }
 
+func (this *AppConfig)GetServerAddr()string {
+	return this.ini.Section("App").Key("Server").Value()
+}
+
 
 //获取打开文件的路径
 

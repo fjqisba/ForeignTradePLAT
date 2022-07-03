@@ -350,7 +350,7 @@ func (this *TradeApp)initMainWindow()  {
 	this.wnd_Main.SetWindowState(core.Qt__WindowMaximized)
 
 	// 设置标题
-	if global.GUserLevel == api.USER_ADMIN{
+	if global.GUserLevel == Model.USER_ADMIN{
 		this.wnd_Main.SetWindowTitle("外贸客户管理平台(管理员)")
 	}else{
 		this.wnd_Main.SetWindowTitle("外贸客户管理平台")
@@ -360,7 +360,7 @@ func (this *TradeApp)initMainWindow()  {
 	menuBar := this.wnd_Main.MenuBar()
 	menu_App := menuBar.AddMenu2("程序")
 
-	if global.GUserLevel == api.USER_ADMIN{
+	if global.GUserLevel == Model.USER_ADMIN{
 		menu_Admin := menuBar.AddMenu2("管理员")
 		menu_Admin.AddAction("上传数据").ConnectTriggered(this.onMenu_UploadCSV)
 		menu_Admin.AddAction("提交数据").ConnectTriggered(this.onMenu_UpdateCSV)
@@ -389,7 +389,7 @@ func (this *TradeApp)initMainWindow()  {
 	this.menu_CSV.AddAction("查看Hunter").ConnectTriggered(this.onCsvMenu_ViewHunter)
 	this.menu_CSV.AddAction("电话联系").ConnectTriggered(this.onCsvMenu_PhoneContact)
 	this.menu_CSV.AddAction("邮箱联系").ConnectTriggered(this.onCsvMenu_EmailContact)
-	if global.GUserLevel == api.USER_ADMIN{
+	if global.GUserLevel == Model.USER_ADMIN{
 		this.menu_AssignTask = this.menu_CSV.AddMenu2("分配任务至")
 		this.menu_CSV.AddAction("获取Hunter").ConnectTriggered(this.onCsvMenu_GetHunterData)
 	}
@@ -412,7 +412,7 @@ func (this *TradeApp)on_LoginBtnClicked(checked bool)  {
 		Utils.MessageBox_Error(this.loginDlg,"登录","异常:"+err.Error())
 		return
 	}
-	if userLevel == api.USER_INVALID{
+	if userLevel == Model.USER_INVALID{
 		Utils.MessageBox_Error(this.loginDlg,"登录","无效的用户名")
 		return
 	}

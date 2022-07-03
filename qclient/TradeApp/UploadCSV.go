@@ -7,9 +7,9 @@ import (
 	"github.com/tidwall/gjson"
 	"io/ioutil"
 	"net/http"
-	"qclient/Const"
 	"qclient/Model"
 	"qclient/Utils"
+	"qclient/global"
 )
 
 func (this *TradeApp)uploadXlsx(filePath string)error  {
@@ -53,7 +53,7 @@ func (this *TradeApp)uploadXlsx(filePath string)error  {
 	}
 
 	uploadBytes,_ := json.Marshal(uploadList)
-	resp,err := http.Post(Const.ServerUrl + "/upload","application/json",bytes.NewReader(uploadBytes))
+	resp,err := http.Post(global.GServerUrl + "/upload","application/json",bytes.NewReader(uploadBytes))
 	if err != nil{
 		return nil
 	}

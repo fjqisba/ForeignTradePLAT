@@ -7,8 +7,8 @@ import (
 	"github.com/tidwall/gjson"
 	"io/ioutil"
 	"net/http"
-	"qclient/Const"
 	"qclient/Model"
+	"qclient/global"
 )
 
 func AssignTask(assignInfo Model.AssignTaskReq)error  {
@@ -16,7 +16,7 @@ func AssignTask(assignInfo Model.AssignTaskReq)error  {
 	if err != nil{
 		return err
 	}
-	hReq,err := http.NewRequest("POST",Const.ServerUrl + "/assignTask",bytes.NewReader(reqBytes))
+	hReq,err := http.NewRequest("POST",global.GServerUrl + "/assignTask",bytes.NewReader(reqBytes))
 	if err != nil{
 		return err
 	}

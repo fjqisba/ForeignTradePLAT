@@ -5,12 +5,12 @@ import (
 	"github.com/tidwall/gjson"
 	"io/ioutil"
 	"net/http"
-	"qclient/Const"
+	"qclient/global"
 	"strings"
 )
 
 func AddUser(userName string)error  {
-	hReq,err := http.NewRequest("POST",Const.ServerUrl +"/addUser",strings.NewReader(userName))
+	hReq,err := http.NewRequest("POST",global.GServerUrl +"/addUser",strings.NewReader(userName))
 	hReq.Header.Set("AUTH","123456789")
 	resp,err := http.DefaultClient.Do(hReq)
 	if err != nil{
@@ -29,7 +29,7 @@ func AddUser(userName string)error  {
 }
 
 func DeleteUser(userName string)error  {
-	hReq,err := http.NewRequest("POST",Const.ServerUrl +"/deleteUser",strings.NewReader(userName))
+	hReq,err := http.NewRequest("POST",global.GServerUrl +"/deleteUser",strings.NewReader(userName))
 	hReq.Header.Set("AUTH","123456789")
 	resp,err := http.DefaultClient.Do(hReq)
 	if err != nil{
@@ -53,7 +53,7 @@ func DeleteUser(userName string)error  {
 //获取普通用户列表
 
 func GetUserList()([]string,error)  {
-	hReq,err := http.NewRequest("GET",Const.ServerUrl + "/getUserList",nil)
+	hReq,err := http.NewRequest("GET",global.GServerUrl + "/getUserList",nil)
 	if err != nil{
 		return nil,err
 	}

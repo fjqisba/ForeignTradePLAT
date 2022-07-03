@@ -7,8 +7,8 @@ import (
 	"github.com/tidwall/gjson"
 	"io/ioutil"
 	"net/http"
-	"qclient/Const"
 	"qclient/Model"
+	"qclient/global"
 )
 
 func GetAllCustomerData(page int,count int,orderBy string)(Model.CustomerDataRsp,error){
@@ -22,7 +22,7 @@ func GetAllCustomerData(page int,count int,orderBy string)(Model.CustomerDataRsp
 	if err != nil{
 		return retRsp,err
 	}
-	hReq,err := http.NewRequest("POST",Const.ServerUrl + "/getAllCustomerData",bytes.NewReader(reqBytes))
+	hReq,err := http.NewRequest("POST",global.GServerUrl + "/getAllCustomerData",bytes.NewReader(reqBytes))
 	if err != nil{
 		return retRsp,err
 	}
@@ -58,7 +58,7 @@ func GetCustomerData(page int,count int,orderBy string,userName string)(Model.Cu
 	if err != nil{
 		return retRsp,err
 	}
-	hReq,err := http.NewRequest("POST",Const.ServerUrl + "/getCustomerData",bytes.NewReader(reqBytes))
+	hReq,err := http.NewRequest("POST",global.GServerUrl + "/getCustomerData",bytes.NewReader(reqBytes))
 	if err != nil{
 		return retRsp,err
 	}
@@ -87,7 +87,7 @@ func UpdateCustomerData(updateList []Model.CustomerInformation)error{
 	if err != nil{
 		return err
 	}
-	hReq,err := http.NewRequest("POST",Const.ServerUrl + "/updateCustomerData",bytes.NewReader(reqBytes))
+	hReq,err := http.NewRequest("POST",global.GServerUrl + "/updateCustomerData",bytes.NewReader(reqBytes))
 	if err != nil{
 		return err
 	}

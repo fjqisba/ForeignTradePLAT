@@ -1,12 +1,16 @@
 package global
 
-import "qclient/api"
+import (
+	"qclient/Config"
+	"qclient/Model"
+)
 
 //存储全局变量
 
 var(
+	GServerUrl string
 	//用户的等级
-	GUserLevel api.UserLevel
+	GUserLevel Model.UserLevel
 	//用户名称
 	GUserName string
 	//排序依据
@@ -18,3 +22,7 @@ var(
 	//当前用户列表
 	GUserList []string
 )
+
+func init()  {
+	GServerUrl = Config.Instance.GetServerAddr()
+}
