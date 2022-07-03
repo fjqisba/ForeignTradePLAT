@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"qclient/Config"
 	"qclient/Model"
+	"strings"
 )
 
 func SearchDomain(domain string)(retEmailList []Model.EmailInfo)  {
@@ -25,7 +26,7 @@ func SearchDomain(domain string)(retEmailList []Model.EmailInfo)  {
 		tmpEmailInfo.Email = eEmailInfo.Get("value").String()
 		tmpEmailInfo.Type = eEmailInfo.Get("type").String()
 		tmpEmailInfo.PersonName = eEmailInfo.Get("first_name").String() + " " + eEmailInfo.Get("last_name").String()
-		tmpEmailInfo.PhoneNumber = eEmailInfo.Get("phone_number").String()
+		tmpEmailInfo.PhoneNumber = strings.TrimSpace(eEmailInfo.Get("phone_number").String())
 		tmpEmailInfo.Department = eEmailInfo.Get("department").String()
 		tmpEmailInfo.Position = eEmailInfo.Get("position").String()
 		tmpEmailInfo.Linkedin = eEmailInfo.Get("linkedin").String()

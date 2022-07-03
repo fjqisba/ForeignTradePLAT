@@ -30,7 +30,7 @@ func (this *TradeApp)onMenu_ExportCSV(checked bool)  {
 	if rowCount == 0{
 		return
 	}
-	filePath := widgets.QFileDialog_GetSaveFileName(this.wnd_Main,"导入客户数据",Config.Instance.GetCreateFileDir(),"表格文件(*.csv *.xlsx)","",widgets.QFileDialog__ReadOnly)
+	filePath := widgets.QFileDialog_GetSaveFileName(this.wnd_Main,"导出客户数据",Config.Instance.GetCreateFileDir(),"表格文件(*.csv *.xlsx)","",widgets.QFileDialog__ReadOnly)
 	if filePath == ""{
 		return
 	}

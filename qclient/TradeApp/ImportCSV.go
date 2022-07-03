@@ -205,6 +205,48 @@ func (this *TradeApp)insertCsvItem(info *Model.CustomerInformation)  {
 	this.table_CSV.SetItem(insertRow,23,widgets.NewQTableWidgetItem2(info.CreatTime.Format("2006-01-02"),0))
 }
 
+func parseXlsx(filePath string)([]Model.CustomerInformation,error)  {
+
+	var retInfoList []Model.CustomerInformation
+	hXlsx, err := xlsx.OpenFile(filePath)
+	if err != nil{
+		return retInfoList,err
+	}
+	//索引数组,用来确定数据的读取顺序
+	indexArray := make([]int,len(gIndexMap))
+	for ti:=0;ti<len(indexArray);ti++{
+		indexArray[ti] = -1
+	}
+	for _,sh := range hXlsx.Sheets {
+		rowHeader,err := sh.Row(0)
+		if err != nil{
+			continue
+		}
+		//初始化数据读取列表
+		for iCol:=0;iCol<sh.MaxCol;iCol++{
+			tmpCell := rowHeader.GetCell(iCol)
+			orderNum,bExists := gIndexMap[tmpCell.Value]
+			if bExists == false{
+				continue
+			}
+			indexArray[orderNum] = iCol
+		}
+		for iRow:=1;iRow<sh.MaxRow;iRow++{
+			hRow,err := sh.Row(iRow)
+			if err != nil{
+				continue
+			}
+			//读取出数据
+			tmpCustomerInfo := getCustomerInformation(hRow,indexArray)
+			if tmpCustomerInfo.CompanyDomain == ""{
+				continue
+			}
+			retInfoList = append(retInfoList, tmpCustomerInfo)
+		}
+	}
+	return retInfoList,nil
+}
+
 func (this *TradeApp)loadXlsx(filePath string)error  {
 	hXlsx, err := xlsx.OpenFile(filePath)
 	if err != nil{
@@ -247,6 +289,45 @@ func (this *TradeApp)loadXlsx(filePath string)error  {
 	}
 
 	return nil
+}
+
+func parseCsv(filePath string)([]Model.CustomerInformation,error) {
+	var retInfoList []Model.CustomerInformation
+	hFile,err := os.Open(filePath)
+	if err != nil{
+		return retInfoList,err
+	}
+	hCsvReader := csv.NewReader(hFile)
+	csvHeader,err := hCsvReader.Read()
+	if err != nil{
+		return retInfoList,err
+	}
+	//索引数组,用来确定数据的读取顺序
+	indexArray := make([]int,len(gIndexMap))
+	for ti:=0;ti<len(indexArray);ti++{
+		indexArray[ti] = -1
+	}
+	//初始化数据读取列表
+	for iCol:=0;iCol<len(csvHeader);iCol++{
+		tmpHeaderName := csvHeader[iCol]
+		orderNum,bExists := gIndexMap[tmpHeaderName]
+		if bExists == false{
+			continue
+		}
+		indexArray[orderNum] = iCol
+	}
+	for true{
+		vec_Records,err := hCsvReader.Read()
+		if err != nil{
+			break
+		}
+		tmpCustomerInfo := getCustomerInformationCsv(vec_Records,indexArray)
+		if tmpCustomerInfo.CompanyDomain == ""{
+			continue
+		}
+		retInfoList = append(retInfoList, tmpCustomerInfo)
+	}
+	return retInfoList,nil
 }
 
 func (this *TradeApp)loadCsv(filePath string)error {

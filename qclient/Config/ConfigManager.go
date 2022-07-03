@@ -51,6 +51,15 @@ func (this *AppConfig)SetOpenFileDir(filePath string)  {
 	this.ini.SaveTo(this.filePath)
 }
 
+func (this *AppConfig)SetUserName(UserName string)  {
+	this.ini.Section("MainWindow").Key("UserName").SetValue(UserName)
+	this.ini.SaveTo(this.filePath)
+}
+
+func (this *AppConfig)GetUserName()string  {
+	return this.ini.Section("MainWindow").Key("UserName").Value()
+}
+
 
 //获取保存文件的路径
 
@@ -92,4 +101,22 @@ func init()  {
 	if err != nil{
 		log.Panicln(err)
 	}
+}
+
+func (this *AppConfig)SaveViewHunterItemWidth(iItem int, nWidth int)  {
+	this.ini.Section("ViewHunter").Key("Item"+strconv.Itoa(iItem)).SetValue(strconv.Itoa(nWidth))
+	err := this.ini.SaveTo(this.filePath)
+	if err != nil{
+		log.Println("[SaveItemWidth]:",err)
+	}
+}
+
+//获取列宽度
+
+func (this *AppConfig)GetViewHunterItemWidth(iItem int)int {
+	i, err := strconv.Atoi(this.ini.Section("ViewHunter").Key("Item"+strconv.Itoa(iItem)).Value())
+	if err != nil{
+		return 100
+	}
+	return i
 }
