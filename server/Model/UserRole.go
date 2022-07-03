@@ -1,12 +1,11 @@
 package Model
 
-type LoginRet int
-
+type UserLevel int
 const(
 	//无效登录
-	LOGIN_INVALID LoginRet = 0
+	USER_INVALID UserLevel = 0
 	//管理员登录
-	LOGIN_ADMIN LoginRet = 1
+	USER_ADMIN UserLevel = 1
 	//普通用户
-	LOGIN_USER LoginRet = 2
+	USER_USER UserLevel = 2
 )

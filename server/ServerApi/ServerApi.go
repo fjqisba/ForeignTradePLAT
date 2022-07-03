@@ -5,6 +5,8 @@ import (
 	"log"
 )
 
+const AuthToken = "123456789"
+
 type ServerApi struct {
 	g *gin.Engine
 }
@@ -18,10 +20,19 @@ func NewServerApi()*ServerApi {
 
 func (this *ServerApi)InitServerApi()error{
 
-	this.g.POST("/login", API_Login)
+	//用户管理
+	this.g.GET("/getUserList",API_GetUserList)
+	this.g.POST("/deleteUser",API_DeleteUser)
+	this.g.POST("/addUser",API_AddUser)
+	this.g.POST("/getUserLevel",API_GetUserLevel)
 
+	this.g.POST("/uploadCustomerData",API_Upload)
+	this.g.POST("/getAllCustomerData",API_GetAllCustomerData)
+	this.g.POST("/getCustomerData",API_GetCustomerData)
+	this.g.POST("/updateCustomerData",API_UpdateCustomerData)
 
-
+	//任务分配
+	this.g.POST("/assignTask",API_AssignTask)
 	return nil
 }
 
